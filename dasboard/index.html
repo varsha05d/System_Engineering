@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AGRI-PRO Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <i class="fa-solid fa-seedling"></i>
+                <div class="logo-text">
+                    <h2>AGRI-PRO</h2>
+                    <p>DIGITAL FARMING</p>
+                </div>
+            </div>
+            <nav class="nav-menu">
+                <a href="#" class="nav-item active"><i class="fa-solid fa-border-all"></i> Dashboard</a>
+                <a href="#" class="nav-item"><i class="fa-solid fa-map-location-dot"></i> Fields</a>
+                <a href="#" class="nav-item"><i class="fa-solid fa-satellite-dish"></i> Sensors</a>
+                <a href="#" class="nav-item"><i class="fa-solid fa-droplet"></i> Irrigation</a>
+                <a href="#" class="nav-item"><i class="fa-solid fa-chart-line"></i> Analytics</a>
+                <a href="#" class="nav-item"><i class="fa-solid fa-bell"></i> Alerts</a>
+                <div class="nav-divider"></div>
+                <a href="#" class="nav-item"><i class="fa-solid fa-gear"></i> Settings</a>
+                <a href="#" class="nav-item"><i class="fa-solid fa-headset"></i> Support</a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="topbar">
+                <div class="header-left">
+                    <h1 id="page-title">Dashboard</h1>
+                    <div class="subtitle">
+                        <span><i class="fa-regular fa-calendar"></i> Oct 26, 2023 | 09:42 AM</span>
+                        <span class="location"><i class="fa-solid fa-location-dot"></i> Farm Field A</span>
+                    </div>
+                </div>
+                <div class="header-right">
+                    <div class="search-bar">
+                        <i class="fa-solid fa-search"></i>
+                        <input type="text" placeholder="Search">
+                    </div>
+                    <div class="profile-section">
+                        <img src="https://ui-avatars.com/api/?name=Sarah+Chen&background=2dd4bf&color=fff" alt="Profile" class="profile-img">
+                        <span>Dr. Sarah Chen</span>
+                    </div>
+                    <div class="notification">
+                        <i class="fa-regular fa-bell"></i>
+                        <span class="badge">3</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- ================= VIEW: DASHBOARD ================= -->
+            <div id="view-Dashboard" class="view-section">
+                <!-- KPIs -->
+                <div class="kpi-grid">
+                    <div class="kpi-card">
+                        <h3>Current Temperature</h3>
+                        <div class="kpi-value">
+                            <div class="icon temp-icon"><i class="fa-solid fa-temperature-half"></i></div>
+                            <h2>24.5°C</h2>
+                        </div>
+                        <p class="trend positive">Trend +1.2%</p>
+                        <div class="mini-chart"><canvas id="tempSparkline"></canvas></div>
+                    </div>
+                    
+                    <div class="kpi-card">
+                        <h3>Soil Moisture</h3>
+                        <div class="kpi-value">
+                            <div class="icon moisture-icon"><i class="fa-solid fa-droplet"></i></div>
+                            <h2>68.0%</h2>
+                        </div>
+                        <p class="trend negative">Trend -3%</p>
+                        <div class="mini-chart"><canvas id="moistureSparkline"></canvas></div>
+                    </div>
+
+                    <div class="kpi-card">
+                        <h3>Water Usage</h3>
+                        <div class="kpi-value">
+                            <div class="icon water-icon"><i class="fa-solid fa-faucet-drip"></i></div>
+                            <h2>1.2K <span>Liters/day</span></h2>
+                        </div>
+                        <div class="mini-chart"><canvas id="waterBarChart"></canvas></div>
+                    </div>
+
+                    <div class="kpi-card">
+                        <h3>Crop Health</h3>
+                        <div class="kpi-value">
+                            <div class="icon health-icon"><i class="fa-solid fa-leaf"></i></div>
+                            <h2>94% <span>Healthy</span></h2>
+                        </div>
+                        <div class="health-bars">
+                            <div class="health-row"><span>Healthy</span><span>94%</span><div class="bar-bg"><div class="bar-fill healthy" style="width: 94%"></div></div></div>
+                            <div class="health-row"><span>Breakdown</span><span>76%</span><div class="bar-bg"><div class="bar-fill breakdown" style="width: 76%"></div></div></div>
+                            <div class="health-row"><span>Nature</span><span>35%</span><div class="bar-bg"><div class="bar-fill nature" style="width: 35%"></div></div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bottom Section -->
+                <div class="bottom-grid">
+                    <!-- Large Chart -->
+                    <div class="chart-container">
+                        <div class="chart-header">
+                            <h2>Environmental Trends</h2>
+                            <p>Current Temp: 24.5°C</p>
+                        </div>
+                        <div class="main-chart-wrapper">
+                            <canvas id="mainTrendChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Control Center -->
+                    <div class="control-center">
+                        <h2>Field Control Center</h2>
+                        
+                        <div class="control-card">
+                            <div class="control-header">
+                                <div class="control-info">
+                                    <div class="icon pump-icon"><i class="fa-solid fa-water"></i></div>
+                                    <div>
+                                        <h3>WATER PUMPS</h3>
+                                        <p class="status active" id="pumpStatus">Status: Active</p>
+                                    </div>
+                                </div>
+                                <label class="switch">
+                                    <input type="checkbox" id="pumpToggle" checked>
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+                            <div class="control-chart">
+                                <p>Pump Flow</p>
+                                <canvas id="pumpSparkline"></canvas>
+                            </div>
+                        </div>
+
+                        <div class="control-card">
+                            <div class="control-header">
+                                <div class="control-info">
+                                    <div class="icon valve-icon"><i class="fa-solid fa-faucet"></i></div>
+                                    <div>
+                                        <h3>IRRIGATION VALVES</h3>
+                                        <p class="status active" id="valveStatus">Status: Active</p>
+                                    </div>
+                                </div>
+                                <label class="switch">
+                                    <input type="checkbox" id="valveToggle" checked>
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+                            <div class="control-chart">
+                                <p>Valve Activity</p>
+                                <canvas id="valveSparkline"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ================= VIEW: FIELDS ================= -->
+            <div id="view-Fields" class="view-section" style="display: none;">
+                <div class="fields-grid">
+                    <div class="field-card">
+                        <div class="field-header">
+                            <h3>Field A (North)</h3>
+                            <span class="status-badge healthy">Optimal</span>
+                        </div>
+                        <div class="field-details">
+                            <p><i class="fa-solid fa-wheat-awn"></i> Crop: <strong>Corn</strong></p>
+                            <p><i class="fa-solid fa-chart-area"></i> Area: <strong>120 Acres</strong></p>
+                            <p><i class="fa-solid fa-droplet"></i> Moisture: <strong>68%</strong></p>
+                        </div>
+                        <button class="btn-outline">View Details</button>
+                    </div>
+                    <div class="field-card">
+                        <div class="field-header">
+                            <h3>Field B (East)</h3>
+                            <span class="status-badge warning">Needs Water</span>
+                        </div>
+                        <div class="field-details">
+                            <p><i class="fa-solid fa-wheat-awn"></i> Crop: <strong>Soybeans</strong></p>
+                            <p><i class="fa-solid fa-chart-area"></i> Area: <strong>85 Acres</strong></p>
+                            <p><i class="fa-solid fa-droplet"></i> Moisture: <strong>22%</strong></p>
+                        </div>
+                        <button class="btn-outline">View Details</button>
+                    </div>
+                    <div class="field-card">
+                        <div class="field-header">
+                            <h3>Field C (South)</h3>
+                            <span class="status-badge healthy">Optimal</span>
+                        </div>
+                        <div class="field-details">
+                            <p><i class="fa-solid fa-wheat-awn"></i> Crop: <strong>Wheat</strong></p>
+                            <p><i class="fa-solid fa-chart-area"></i> Area: <strong>200 Acres</strong></p>
+                            <p><i class="fa-solid fa-droplet"></i> Moisture: <strong>55%</strong></p>
+                        </div>
+                        <button class="btn-outline">View Details</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ================= VIEW: SENSORS ================= -->
+            <div id="view-Sensors" class="view-section" style="display: none;">
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Sensor ID</th>
+                                <th>Type</th>
+                                <th>Location</th>
+                                <th>Status</th>
+                                <th>Last Reading</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>S-001</td><td>Soil Moisture</td><td>Field A</td>
+                                <td><span class="status-badge healthy">Online</span></td>
+                                <td>68% (1m ago)</td><td><button class="btn-text">Ping</button></td>
+                            </tr>
+                            <tr>
+                                <td>S-002</td><td>Temperature DHT22</td><td>Field A</td>
+                                <td><span class="status-badge healthy">Online</span></td>
+                                <td>24.5°C (1m ago)</td><td><button class="btn-text">Ping</button></td>
+                            </tr>
+                            <tr>
+                                <td>S-003</td><td>Soil pH</td><td>Field B</td>
+                                <td><span class="status-badge error">Offline</span></td>
+                                <td>--- (2h ago)</td><td><button class="btn-text">Restart</button></td>
+                            </tr>
+                            <tr>
+                                <td>S-004</td><td>Soil Moisture</td><td>Field C</td>
+                                <td><span class="status-badge healthy">Online</span></td>
+                                <td>55% (5m ago)</td><td><button class="btn-text">Ping</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- ================= VIEW: IRRIGATION ================= -->
+            <div id="view-Irrigation" class="view-section" style="display: none;">
+                <div class="irrigation-layout">
+                    <div class="chart-container" style="flex: 1;">
+                        <h2>Zone Irrigation Schedule</h2>
+                        <div class="schedule-list mt-4">
+                            <div class="schedule-item">
+                                <div><strong>Zone 1 (Field A)</strong><p class="text-muted text-sm">Scheduled: 06:00 AM - 08:00 AM</p></div>
+                                <span class="status-badge healthy">Completed</span>
+                            </div>
+                            <div class="schedule-item">
+                                <div><strong>Zone 2 (Field B)</strong><p class="text-muted text-sm">Scheduled: 04:00 PM - 06:00 PM</p></div>
+                                <span class="status-badge warning">Pending</span>
+                            </div>
+                        </div>
+                        <button class="btn-primary mt-4 w-100">Add New Schedule</button>
+                    </div>
+                    <div class="chart-container" style="flex: 1;">
+                        <h2>Manual Override</h2>
+                        <p class="text-muted mb-4">Directly control master valves and auxiliary pumps.</p>
+                        
+                        <div class="control-header mb-4">
+                            <div class="control-info">
+                                <div class="icon pump-icon"><i class="fa-solid fa-water"></i></div>
+                                <div><h3>MASTER PUMP</h3><p class="status active">Status: Active</p></div>
+                            </div>
+                            <label class="switch"><input type="checkbox" checked><span class="slider round"></span></label>
+                        </div>
+                        <div class="control-header">
+                            <div class="control-info">
+                                <div class="icon valve-icon"><i class="fa-solid fa-faucet"></i></div>
+                                <div><h3>ZONE 2 BYPASS</h3><p class="status inactive">Status: Inactive</p></div>
+                            </div>
+                            <label class="switch"><input type="checkbox"><span class="slider round"></span></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ================= VIEW: ANALYTICS ================= -->
+            <div id="view-Analytics" class="view-section" style="display: none;">
+                <div class="chart-container">
+                    <h2>Weekly Resource Usage vs Projected Yield</h2>
+                    <div class="main-chart-wrapper" style="height: 400px;">
+                        <canvas id="analyticsChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ================= VIEW: ALERTS ================= -->
+            <div id="view-Alerts" class="view-section" style="display: none;">
+                <div class="chart-container">
+                    <div class="alert-list-view">
+                        <div class="alert-item error">
+                            <i class="fa-solid fa-circle-exclamation"></i>
+                            <div class="alert-content">
+                                <strong>Sensor Offline</strong>
+                                <p>S-003 Soil pH in Field B has been unresponsive for 2 hours.</p>
+                                <small>2 hours ago</small>
+                            </div>
+                        </div>
+                        <div class="alert-item warning">
+                            <i class="fa-solid fa-triangle-exclamation"></i>
+                            <div class="alert-content">
+                                <strong>Low Moisture Level</strong>
+                                <p>Field B moisture is at 22%. Scheduled irrigation is pending.</p>
+                                <small>4 hours ago</small>
+                            </div>
+                        </div>
+                        <div class="alert-item info">
+                            <i class="fa-solid fa-circle-info"></i>
+                            <div class="alert-content">
+                                <strong>System Update</strong>
+                                <p>Gateway firmware successfully updated to v2.4.1.</p>
+                                <small>Yesterday, 11:30 PM</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ================= VIEW: SETTINGS ================= -->
+            <div id="view-Settings" class="view-section" style="display: none;">
+                <div class="chart-container" style="max-width: 600px;">
+                    <h2>System Preferences</h2>
+                    <div class="settings-form mt-4">
+                        <div class="form-group">
+                            <label>Farm Name</label>
+                            <input type="text" class="form-input" value="AGRI-PRO Main Farm">
+                        </div>
+                        <div class="form-group">
+                            <label>Administrator Email</label>
+                            <input type="email" class="form-input" value="sarah.chen@agripro.com">
+                        </div>
+                        <div class="form-group">
+                            <label>Measurement System</label>
+                            <select class="form-input">
+                                <option>Metric (Celsius, Liters)</option>
+                                <option>Imperial (Fahrenheit, Gallons)</option>
+                            </select>
+                        </div>
+                        <div class="form-group mb-4">
+                            <label>Automated Irrigation</label>
+                            <div class="control-header" style="background: none; border: none; padding: 0;">
+                                <span>Allow AI to override schedules based on weather forecasts</span>
+                                <label class="switch"><input type="checkbox" checked><span class="slider round"></span></label>
+                            </div>
+                        </div>
+                        <button class="btn-primary" onclick="showToast('Settings saved successfully!')">Save Changes</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ================= VIEW: SUPPORT ================= -->
+            <div id="view-Support" class="view-section" style="display: none;">
+                <div class="chart-container">
+                    <div class="support-content text-center" style="padding: 40px;">
+                        <i class="fa-solid fa-headset" style="font-size: 48px; color: var(--accent-blue); margin-bottom: 20px;"></i>
+                        <h2>Need Assistance?</h2>
+                        <p class="text-muted mb-4" style="max-width: 400px; margin: 0 auto 20px auto;">Our agricultural specialists and technical support team are available 24/7 to help you optimize your farm.</p>
+                        <button class="btn-primary" onclick="showToast('Support ticket opened. An agent will contact you soon.', 'info')">Open Support Ticket</button>
+                        
+                        <hr style="border-color: var(--border); margin: 40px 0;">
+                        
+                        <div class="faq-list text-left" style="max-width: 600px; margin: 0 auto; text-align: left;">
+                            <h3 class="mb-4">Frequently Asked Questions</h3>
+                            <div class="faq-item mb-4">
+                                <strong>How do I recalibrate a soil moisture sensor?</strong>
+                                <p class="text-muted text-sm mt-2">Navigate to the Sensors view, click on the specific sensor ID, and select the 'Recalibrate' option from the action menu.</p>
+                            </div>
+                            <div class="faq-item mb-4">
+                                <strong>What does the 'Breakdown' health metric mean?</strong>
+                                <p class="text-muted text-sm mt-2">Breakdown refers to crops showing early signs of stress due to lack of nutrients or pests, calculated via satellite multispectral imagery.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Toast Notifications Container -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

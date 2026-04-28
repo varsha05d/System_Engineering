@@ -121,9 +121,22 @@ The CAP theorem states a distributed system can only guarantee two out of three:
 
 ## 4. UI/UX Dashboard Design and Presentation
 
-To fulfill the requirement of preparing a neat, well-labeled layout (simulating printed components pasted on a chart), the following high-fidelity UI design has been digitally synthesized for your presentation.
+To fulfill the requirement of preparing a neat, well-labeled layout (simulating printed components pasted on a chart), we have implemented a complete Single Page Application frontend. Below are the functional views of the dashboard that you can use for your presentation:
 
-![Dashboard Design Mockup](/Users/pradyumnaprasad/.gemini/antigravity/brain/394cba8f-86e8-4de4-a36a-63a930cca581/agri_dashboard_mockup_1777380622009.png)
+### 1. Main Dashboard View
+![Dashboard View](assets/dashboard.png)
+
+### 2. Fields Management
+![Fields View](assets/fields.png)
+
+### 3. Sensor Network
+![Sensors View](assets/sensors.png)
+
+### 4. Irrigation Control
+![Irrigation View](assets/irrigation.png)
+
+### 5. Data Analytics
+![Analytics View](assets/analytics.png)
 
 ### Dashboard Analysis
 *   **Dashboard Type:** This is an **Operational Dashboard**. 
